@@ -3,11 +3,12 @@ import DeviceInfo from 'react-native-device-info';
 
 import { ScreenHit, PageHit, Event, Serializable } from './hits';
 
-const packageDotJson = require('../../package.json');
-
 const { width, height } = Dimensions.get('window');
 
 let defaultOptions = { debug: false };
+
+const appName = DeviceInfo.getApplicationName();
+const appVersion = DeviceInfo.getVersion();
 
 export default class Analytics {
     ready = false
@@ -22,9 +23,9 @@ export default class Analytics {
         this.userAgent = DeviceInfo.getUserAgent();
 
         this.parameters = { 
-            an: packageDotJson.name, 
-            aid: packageDotJson.name, 
-            av: packageDotJson.version,
+            an: appName, 
+            aid: appName, 
+            av: appVersion,
             sr: `${width}x${height}`,
             ...additionalParameters
         };
