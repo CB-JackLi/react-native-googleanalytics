@@ -1,5 +1,5 @@
 import { Platform, Dimensions } from 'react-native';
-import DeviceInfo from 'react-native-device-info';
+import { getUniqueId, getUserAgent, getApplicationName, getVersion } from 'react-native-device-info';
 
 import { ScreenHit, PageHit, Event, Serializable } from './hits';
 
@@ -7,8 +7,8 @@ const { width, height } = Dimensions.get('window');
 
 let defaultOptions = { debug: false };
 
-const appName = DeviceInfo.getApplicationName();
-const appVersion = DeviceInfo.getVersion();
+const appName = getApplicationName();
+const appVersion = getVersion();
 
 export default class Analytics {
     ready = false
@@ -18,10 +18,9 @@ export default class Analytics {
     constructor(propertyId, additionalParameters = {}, options = defaultOptions){
         this.propertyId = propertyId;
         this.options = options;
-        this.clientId = DeviceInfo.getUniqueID();
+        this.clientId = getUniqueId();
         this.options = options;
-        this.userAgent = DeviceInfo.getUserAgent();
-
+        this.userAgent = getUserAgent();
         this.parameters = { 
             an: appName, 
             aid: appName, 
